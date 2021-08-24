@@ -29,8 +29,9 @@ function getDetails(call, callback) {
 function main() {
     let server = new grpc.Server();
     server.addService(employee_proto.Employee.service, {getDetails: getDetails});
-    server.bind('0.0.0.0:4500', grpc.ServerCredentials.createInsecure());
-    server.start();
+    server.bindAsync('0.0.0.0:4500', grpc.ServerCredentials.createInsecure(),()=>{
+        server.start();
+    });
 }
 
 main();
